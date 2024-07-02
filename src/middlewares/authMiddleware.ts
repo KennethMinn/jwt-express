@@ -14,7 +14,7 @@ export const authMiddleware = (
     return res.status(401).json({ message: "Unauthenticated" }); //invalid token
   }
 
-  jwt.verify(accessToken, process.env.JWT_SECRET!, (err) => {
+  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET!, (err) => {
     if (err) {
       return res.status(401).json({ message: "Unauthenticated" }); //invalid token
     } else {
