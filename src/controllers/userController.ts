@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import User from "../models/user";
+import { UserService } from "../services/userService";
 
-export const getAllUsers = async (req: Request, res: Response) => {
-  const users = await User.find();
+export class UserController {
+  constructor(private userService: UserService) {}
 
-  return res.status(200).json({ users });
-};
+  getAllUsers(req: Request, res: Response) {
+    return this.userService.getAllUsers(req, res);
+  }
+}

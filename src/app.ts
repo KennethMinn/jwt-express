@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import http from "http";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
 
 const app = express();
 dotenv.config(); //to use env
@@ -26,10 +27,11 @@ mongoose
 app.use(
   cors({
     credentials: true,
-    origin: "*",
+    origin: "http://localhost:5173",
   })
 );
 
+app.use(morgan("dev")); //http middleware
 app.use(express.urlencoded({ extended: false }));
 
 // Middleware for parsing JSON bodies

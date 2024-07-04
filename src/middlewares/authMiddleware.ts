@@ -1,24 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { AuthService } from "../services/authService";
 
-// Middleware to verify JWT token
-export const authMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const accessToken = req.headers.authorization?.replace("Bearer", "").trim();
+export class AuthMiddleware {
+  constructor(private authService: AuthService) {}
 
-  if (!accessToken) {
-    //throw new Error("Unauthenticated");
-    return res.status(401).json({ message: "Unauthenticated" }); //invalid token
+  verifyJwtToken(req: Request, res: Response, next: NextFunction) {
+    return this.authService.verifyJwtToken(req, res, next);
   }
-
-  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET!, (err) => {
-    if (err) {
-      return res.status(401).json({ message: "Unauthenticated" }); //invalid token
-    } else {
-      next();
-    }
-  });
-};
+}
