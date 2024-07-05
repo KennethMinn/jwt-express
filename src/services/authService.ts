@@ -6,11 +6,6 @@ import { createToken } from "../utils/createToken";
 
 export class AuthService {
   async registerUser(req: Request, res: Response) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     const { email, password } = req.body;
 
     try {
@@ -31,11 +26,6 @@ export class AuthService {
   }
 
   async loginUser(req: Request, res: Response) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     const { email, password } = req.body;
 
     try {
@@ -106,7 +96,6 @@ export class AuthService {
   }
 
   async handleRefreshToken(req: Request, res: Response) {
-    console.log("hit");
     const cookies = req.cookies;
     const refreshToken = cookies?.refresh_token;
 

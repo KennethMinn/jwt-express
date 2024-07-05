@@ -31,6 +31,7 @@ app.use(
   })
 );
 
+app.use(express.static("public")); //for file upload
 app.use(morgan("dev")); //http middleware
 app.use(express.urlencoded({ extended: false }));
 

@@ -19,4 +19,13 @@ export class AuthController {
   refreshToken(req: Request, res: Response) {
     return this.authService.handleRefreshToken(req, res);
   }
+
+  upload(req: Request, res: Response) {
+    try {
+      console.log(req.file); //file obj, undefined
+      return res.json({ image: "uploaded" });
+    } catch (e) {
+      return res.status(500).json({ msg: "internet server error" });
+    }
+  }
 }

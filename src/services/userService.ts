@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/user";
 
 export class UserService {
-  async getAllUsers(req: Request, res: Response) {
+  async getAllUsers(_req: Request, res: Response) {
     const users = await User.find();
     const userResponseArr = users.map((user) => ({
       id: user.id,
