@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   registerValidation,
   loginValidation,
+  photoValidation,
 } from "../validators/authValidator";
 import { AuthService } from "../services/authService";
 import { AuthController } from "../controllers/authController";
@@ -32,6 +33,8 @@ router.get("/refresh", authController.refreshToken.bind(authController));
 router.post(
   "/upload",
   upload.single("photo"),
+  photoValidation,
+  errorResponseMiddleware.handleErrorResponse.bind(errorResponseMiddleware),
   authController.upload.bind(authController)
 );
 

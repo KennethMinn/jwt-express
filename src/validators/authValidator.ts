@@ -13,3 +13,15 @@ export const loginValidation = [
   body("email").isEmail().withMessage("Please enter a valid email"),
   body("password").notEmpty().withMessage("Password is required"),
 ];
+
+export const photoValidation = [
+  body("photo").custom((value, { req }) => {
+    if (!value) {
+      throw new Error("Please upload a photo");
+    }
+    if (!value.mimetype.startsWith("image")) {
+      throw new Error("Photo must be image");
+    }
+    return true;
+  }),
+];
