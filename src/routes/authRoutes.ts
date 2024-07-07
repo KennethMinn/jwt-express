@@ -1,29 +1,27 @@
 import { Router } from "express";
-import {
-  registerValidation,
-  loginValidation,
-} from "../validators/authValidator";
 import { AuthService } from "../services/authService";
 import { AuthController } from "../controllers/authController";
 import { ErrorResponseMiddleware } from "../middlewares/errorResponseMiddleware";
 import { ErrorService } from "../services/errorService";
 import { upload } from "../utils/uploadPhoto";
+import { AuthValidator } from "../validators/authValidator";
 
 const authService = new AuthService();
 const authController = new AuthController(authService);
 const errorService = new ErrorService();
 const errorResponseMiddleware = new ErrorResponseMiddleware(errorService);
+const authValidator = new AuthValidator();
 
 const router = Router();
 router.post(
   "/register",
-  registerValidation,
+  authValidator.registerValidation(),
   errorResponseMiddleware.handleErrorResponse.bind(errorResponseMiddleware),
   authController.register.bind(authController)
 );
 router.post(
   "/login",
-  loginValidation,
+  authValidator.loginValidation(),
   errorResponseMiddleware.handleErrorResponse.bind(errorResponseMiddleware),
   authController.login.bind(authController)
 );
