@@ -5,11 +5,13 @@ import { ErrorResponseMiddleware } from "../middlewares/errorResponseMiddleware"
 import { ErrorService } from "../services/errorService";
 import { upload } from "../utils/uploadPhoto";
 import { AuthValidator } from "../validators/authValidator";
+import { AuthMiddleware } from "../middlewares/authMiddleware";
 
 const authService = new AuthService();
 const authController = new AuthController(authService);
 const errorService = new ErrorService();
 const errorResponseMiddleware = new ErrorResponseMiddleware(errorService);
+const authMiddleware = new AuthMiddleware(authService);
 const authValidator = new AuthValidator();
 
 const router = Router();

@@ -7,6 +7,7 @@ export class UserService {
     const userResponseArr = users.map((user) => ({
       id: user.id,
       email: user.email,
+      photo: user.profile || null,
     }));
     return res.status(200).json({ users: userResponseArr });
   }

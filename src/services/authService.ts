@@ -66,7 +66,11 @@ export class AuthService {
       }
 
       //actual response body for user
-      const userResponse = { id: user.id, email: user.email };
+      const userResponse = {
+        id: user.id,
+        email: user.email,
+        photo: user.profile || null,
+      };
 
       const accessToken = createToken(
         userResponse,
