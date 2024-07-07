@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 
 // Interface to represent a User document in MongoDB
 export interface IUser extends Document {
+  profile: string;
   email: string;
   password: string;
   refreshToken: string;
@@ -11,6 +12,9 @@ export interface IUser extends Document {
 
 // Mongoose schema for the User model
 const UserSchema: Schema = new Schema({
+  profile: {
+    type: String,
+  },
   email: {
     type: String,
     required: true,

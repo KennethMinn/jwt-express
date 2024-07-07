@@ -28,8 +28,10 @@ router.post(
 router.post("/logout", authController.logout.bind(authController));
 router.get("/refresh", authController.refreshToken.bind(authController));
 router.post(
-  "/upload",
+  "/:id/upload",
   upload.single("photo"),
+  authValidator.photoValidation(),
+  errorResponseMiddleware.handleErrorResponse.bind(errorResponseMiddleware),
   authController.upload.bind(authController)
 );
 

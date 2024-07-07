@@ -21,11 +21,6 @@ export class AuthController {
   }
 
   upload(req: Request, res: Response) {
-    try {
-      console.log(req.file); //file obj, undefined
-      return res.json({ image: "uploaded" });
-    } catch (e) {
-      return res.status(500).json({ msg: "internet server error" });
-    }
+    return this.authService.uploadPhoto(req, res);
   }
 }

@@ -1,10 +1,34 @@
 import { NextFunction, Request, Response } from "express";
-import { validationResult } from "express-validator";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
 import { createToken } from "../utils/createToken";
+import { removePhotoIfExists } from "../utils/removePhoto";
 
 export class AuthService {
+  async uploadPhoto(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+      const user = await User.findByIdAndUpdate(
+        id,
+        {
+          profile: "/" + req.file?.filename,
+        },
+        { new: true }
+      );
+
+      //need to add when updating user
+      // const path = __dirname + "/../../public" + user?.profile;
+      // await removePhotoIfExists(path);
+
+      return res
+        .status(200)
+        .json({ message: "Profile added successfully", user });
+    } catch (e: any) {
+      console.log(e.message);
+      return res.status(500).json({ msg: "internet server error" });
+    }
+  }
+
   async registerUser(req: Request, res: Response) {
     const { email, password } = req.body;
 
